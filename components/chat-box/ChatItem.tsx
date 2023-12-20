@@ -17,7 +17,11 @@ export default function ChatItem({
     <div className="relative flex w-full cursor-pointer items-center rounded-md p-4 transition hover:bg-zinc-600/50">
       <div className="group flex w-full items-start gap-x-3">
         <Avatar
-          src={avatar}
+          src={
+            avatar === null
+              ? `https://ui-avatars.com/api/?name=${username}`
+              : avatar
+          }
           className="h-8 w-8"
         />
         <div className="flex w-full flex-col">
