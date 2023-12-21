@@ -3,7 +3,7 @@
 
 import { playSound } from '@/lib/utils';
 import { useTimer } from '@/store/timer';
-import { Button, Card, CardBody } from '@nextui-org/react';
+import { Button, Card, CardBody, Progress } from '@nextui-org/react';
 import { Pause, Play, RefreshCcw, SkipForward } from 'lucide-react';
 import React, { useEffect } from 'react';
 

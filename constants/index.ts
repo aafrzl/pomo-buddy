@@ -1,2 +1,30 @@
 export const DEFAULT_WORK_TIME = 25 * 60;
 export const DEFAULT_BREAK_TIME = 5 * 60;
+
+export const badWords = [
+  'anjing',
+  'babi',
+  'bangsat',
+  'asu',
+  'kontol',
+  'memek',
+  'ngentot',
+  'goblok',
+  'tolol',
+  'bego',
+  'bajingan',
+  'setan',
+  'sinting',
+  'gila',
+  'bodoh',
+  'idiot',
+  'pantek',
+  'puki',
+  'pepek',
+  'kampret',
+  'jembut',
+  'fuck',
+  'ass hole',
+  'ass',
+  'shit',
+];

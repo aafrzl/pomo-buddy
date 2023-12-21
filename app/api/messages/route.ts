@@ -1,3 +1,4 @@
+import { badWords } from '@/constants';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { pusherServer } from '@/lib/pusher';
@@ -24,6 +25,29 @@ export async function POST(req: Request) {
 
     if (!session) {
       return new NextResponse('Unauthorized', { status: 401 });
+    }
+
+    const badWord = badWords.find((word) => query.message.includes(word));
+    if (badWord) {
+      query.message = query.message.replace(badWord, '****');
+    }
+
+    const limitMessage = await prisma.message.count({
+      where: {
+        email: session.user?.email,
+        createdAt: {
+          gte: new Date(new Date().getTime() - 60 * 1000),
+        },
+      },
+    });
+
+    if (limitMessage >= 5) {
+      return new NextResponse(
+        'You are sending too many messages. wait for 1 minutes.',
+        {
+          status: 400,
+        }
+      );
     }
 
     const server = await prisma.message.create({

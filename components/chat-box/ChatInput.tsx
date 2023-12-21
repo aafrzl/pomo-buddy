@@ -1,12 +1,13 @@
 'use client';
 
-import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import queryString from 'query-string';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 import dynamic from 'next/dynamic';
+import toast from 'react-hot-toast';
 import EmojiPicker from '../EmojiPicker';
 
 const Input = dynamic(
@@ -33,19 +34,17 @@ export default function ChatInput() {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
-    try {
-      const url = queryString.stringifyUrl({
-        url: '/api/messages',
-        query: {
-          message: values.message,
-        },
-      });
-      await axios.post(url, { message: values.message });
+    const url = queryString.stringifyUrl({
+      url: '/api/messages',
+      query: {
+        message: values.message,
+      },
+    });
+    await axios.post(url, { message: values.message }).catch((err) => {
+      toast.error(err.response.data);
+    });
 
-      form.reset();
-    } catch (error) {
-      console.log('[SEND_MESSAGE_ERROR]');
-    }
+    form.reset();
   };
 
   return (

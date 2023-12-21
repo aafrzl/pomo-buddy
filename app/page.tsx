@@ -5,6 +5,7 @@ import ChatBox from '@/components/chat-box/ChatBox';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { Session, getServerSession } from 'next-auth';
+import Link from 'next/link';
 
 type data = {
   id: string;
@@ -49,6 +50,26 @@ export default async function Home() {
           data={data}
           session={session}
         />
+        <div className="mt-10 flex flex-col items-start gap-4">
+          <div>
+            <h3 className="text-xl font-semibold text-foreground-400">About</h3>
+            <p className="text-xs text-foreground-500">
+              Pomobuddy is a productivity app that helps you stay focused and on
+              track. it&apos;s a simple app that combines the pomodoro technique
+              with a chat room and a youtube video player.
+            </p>
+          </div>
+          <div className="inline-flex items-center gap-2 text-sm">
+            <p className="text-foreground-500">Crafted by </p>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={'https://github.com/aafrzl'}
+              className="text-sm text-blue-500 hover:text-blue-600 hover:underline">
+              @aafrzl
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
